@@ -13,7 +13,7 @@ npm install -g newman
 npm install -g newman-reporter-htmlextra
 ```
 
-Executar Localmente:
+### Executar Localmente:
 ````bash
  newman run "Prova S206 - GoRest.postman_collection.json" \
      -e "GoRest.postman_environment.json"
