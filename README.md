@@ -15,18 +15,19 @@ npm install -g newman-reporter-htmlextra
 
 ### Executar Localmente:
 ````bash
- newman run "Prova S206 - GoRest.postman_collection.json" \
-     -e "GoRest.postman_environment.json"
+ newman run "Prova S206 - GoRest.postman_collection.json" \ -e "GoRest.postman_environment.json"
 ````
 ### GerarRelatório HTML
 
 ```bash
-newman run "Prova S206 - GoRest.postman_collection.json" \
-     -e "GoRest.postman_environment.json" \
-     -r htmlextra \
-     --reporter-htmlextra-export report.html
+newman run "Prova S206 - GoRest.postman_collection.json" \ -e "GoRest.postman_environment.json" \ -r htmlextra \ --reporter-htmlextra-export report.html
 ```
 O relatório será salvo como report.html no diretório atual.
+
+
+
+<img width="413" height="516" alt="image" src="https://github.com/user-attachments/assets/8b007f05-5462-43d9-b2f4-36d863833431" />
+
 
 
 
