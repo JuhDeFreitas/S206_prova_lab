@@ -1,0 +1,226 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 7,
+    "passes": 6,
+    "pending": 0,
+    "failures": 1,
+    "start": "2025-12-02T03:17:41.671Z",
+    "end": "2025-12-02T03:18:00.173Z",
+    "duration": 18502,
+    "testsRegistered": 7,
+    "passPercent": 85.71428571428571,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "2485e54e-abd5-4c84-82de-ac7755c7b1b4",
+      "title": "",
+      "fullFile": "cypress\\e2e\\ProvaS2060-Cypress.cy.js",
+      "file": "cypress\\e2e\\ProvaS2060-Cypress.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [
+        {
+          "title": "Deve carreegar a homepage corretamente",
+          "fullTitle": "Deve carreegar a homepage corretamente",
+          "timedOut": null,
+          "duration": 3017,
+          "state": "passed",
+          "speed": "fast",
+          "pass": true,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "cy.visit(\"https://www.demoblaze.com/index.html\");\ncy.contains(\"PRODUCT STORE\").should(\"be.visible\");\ncy.get(\"#tbodyid .card\").should(\"have.length.greaterThan\", 0);",
+          "err": {},
+          "uuid": "b3a5a112-2d12-4345-ae7d-73628cc19b54",
+          "parentUUID": "2485e54e-abd5-4c84-82de-ac7755c7b1b4",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Deve navegar para a categirio Phones corretamente",
+          "fullTitle": "Deve navegar para a categirio Phones corretamente",
+          "timedOut": null,
+          "duration": 1340,
+          "state": "passed",
+          "speed": "fast",
+          "pass": true,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "cy.visit(\"https://www.demoblaze.com/index.html\");\ncy.contains(\"Phones\").click();\ncy.get(\"#tbodyid .card-title\").should(\"be.visible\");",
+          "err": {},
+          "uuid": "912f4e46-80f0-480e-bb20-83fa6eba7b01",
+          "parentUUID": "2485e54e-abd5-4c84-82de-ac7755c7b1b4",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Deve abrir um produto e ver os detalhes",
+          "fullTitle": "Deve abrir um produto e ver os detalhes",
+          "timedOut": null,
+          "duration": 2139,
+          "state": "passed",
+          "speed": "fast",
+          "pass": true,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "cy.visit(\"https://www.demoblaze.com/index.html\");\ncy.contains(\"Laptops\").click();\ncy.contains(\"Sony vaio i5\").click();\ncy.get(\".name\").should(\"contain\", \"Sony vaio i5\");\ncy.get(\"#more-information\").should(\"be.visible\");",
+          "err": {},
+          "uuid": "f10442f6-4af3-4ff8-82cc-cc4fc1cfb031",
+          "parentUUID": "2485e54e-abd5-4c84-82de-ac7755c7b1b4",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Deve adicionar um item ao carrinho",
+          "fullTitle": "Deve adicionar um item ao carrinho",
+          "timedOut": null,
+          "duration": 1657,
+          "state": "passed",
+          "speed": "fast",
+          "pass": true,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "cy.visit(\"https://www.demoblaze.com/index.html\");\ncy.contains(\"Laptops\").click();\ncy.contains(\"Sony vaio i5\").click();\ncy.contains(\"Add to cart\").click();\n// Aceitar alerta\ncy.on(\"window:alert\", msg => {\n  expect(msg).to.include(\"Product added\");\n});",
+          "err": {},
+          "uuid": "d245e419-4026-4203-a3dc-16d45f9d2dfe",
+          "parentUUID": "2485e54e-abd5-4c84-82de-ac7755c7b1b4",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Não permitir finalizar as compras sem os dados ",
+          "fullTitle": "Não permitir finalizar as compras sem os dados ",
+          "timedOut": null,
+          "duration": 2098,
+          "state": "passed",
+          "speed": "fast",
+          "pass": true,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "cy.visit(\"https://www.demoblaze.com/index.html\");\ncy.contains(\"Cart\").click();\ncy.contains(\"Place Order\").click();\ncy.contains(\"Purchase\").click();\ncy.get(\".modal-content\").should(\"be.visible\");",
+          "err": {},
+          "uuid": "742f20e7-66d7-49cb-b4a7-f282580ad731",
+          "parentUUID": "2485e54e-abd5-4c84-82de-ac7755c7b1b4",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Não permitir login com usuário inexistente",
+          "fullTitle": "Não permitir login com usuário inexistente",
+          "timedOut": null,
+          "duration": 2675,
+          "state": "failed",
+          "speed": null,
+          "pass": false,
+          "fail": true,
+          "pending": false,
+          "context": null,
+          "code": "cy.visit(\"https://www.demoblaze.com/index.html\");\n// Clica no botão de login da NAVBAR (único visível)\ncy.get(\"#login2\").click();\n// Aguarda o modal abrir\ncy.get(\"#logInModal\").should(\"be.visible\");\ncy.get(\"#loginusername\").type(\"usuario_inexistente\");\ncy.get(\"#loginpassword\").type(\"senha_errada\");\n// botao de login\ncy.get(\"#logInModal .btn-primary\").click();\ncy.on(\"window:alert\", msg => {\n  expect(msg).to.include(\"User does not exist\");\n});",
+          "err": {
+            "message": "AssertionError: The following error originated from your application code, not from Cypress.\n\n  > expected 'Please fill out Username and Password.' to include 'User does not exist'\n\nWhen Cypress detects uncaught errors originating from your application it will automatically fail the current test.\n\nThis behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.\n\nhttps://on.cypress.io/uncaught-exception-from-application",
+            "estack": "AssertionError: The following error originated from your application code, not from Cypress.\n\n  > expected 'Please fill out Username and Password.' to include 'User does not exist'\n\nWhen Cypress detects uncaught errors originating from your application it will automatically fail the current test.\n\nThis behavior is configurable, and you can choose to turn this off by listening to the `uncaught:exception` event.\n\nhttps://on.cypress.io/uncaught-exception-from-application\n    at $Cy.eval (webpack:///./cypress/e2e/ProvaS2060-Cypress.cy.js:69:24)\n    at EventEmitter.emit (https://www.demoblaze.com/__cypress/runner/cypress_runner.js:148920:19)\n    at parent.<computed> [as emit] (https://www.demoblaze.com/__cypress/runner/cypress_runner.js:147833:32)\n    at $Cypress.action (https://www.demoblaze.com/__cypress/runner/cypress_runner.js:41731:21)\n    at onAlert (https://www.demoblaze.com/__cypress/runner/cypress_runner.js:146214:27)\n    at logIn (https://www.demoblaze.com/js/index.js:197:5)",
+            "diff": null
+          },
+          "uuid": "698645be-c623-4b54-a75a-13a97d80865d",
+          "parentUUID": "2485e54e-abd5-4c84-82de-ac7755c7b1b4",
+          "isHook": false,
+          "skipped": false
+        }
+      ],
+      "suites": [
+        {
+          "uuid": "681f9f01-e9ff-49de-8e28-f974370a8d83",
+          "title": "template spec",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "passes",
+              "fullTitle": "template spec passes",
+              "timedOut": null,
+              "duration": 362,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(\"https://www.demoblaze.com/index.html\");",
+              "err": {},
+              "uuid": "414d4c63-4cee-4182-aabc-88cca7b27194",
+              "parentUUID": "681f9f01-e9ff-49de-8e28-f974370a8d83",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "414d4c63-4cee-4182-aabc-88cca7b27194"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 362,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [
+        "b3a5a112-2d12-4345-ae7d-73628cc19b54",
+        "912f4e46-80f0-480e-bb20-83fa6eba7b01",
+        "f10442f6-4af3-4ff8-82cc-cc4fc1cfb031",
+        "d245e419-4026-4203-a3dc-16d45f9d2dfe",
+        "742f20e7-66d7-49cb-b4a7-f282580ad731"
+      ],
+      "failures": [
+        "698645be-c623-4b54-a75a-13a97d80865d"
+      ],
+      "pending": [],
+      "skipped": [],
+      "duration": 12926,
+      "root": true,
+      "rootEmpty": false,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}
