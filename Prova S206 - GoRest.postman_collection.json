@@ -1,0 +1,470 @@
+{
+  "info": {
+    "_postman_id": "1dce3497-1f91-4c63-9938-b56a28d9ade3",
+    "name": "Prova S206 - GoRest",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Busca por usuários",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "39f8d087-3cc5-4ecb-90c1-5d9520896047",
+            "exec": [
+              "pm.test(\"Status 200\", () => {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "let json = pm.response.json();",
+              "",
+              "pm.test(\"É um array\", () => {",
+              "    pm.expect(Array.isArray(json)).to.be.true;",
+              "});",
+              "",
+              "pm.test(\"Array não está vazio\", () => {",
+              "    pm.expect(json.length).to.be.above(0);",
+              "});",
+              "",
+              "pm.test(\"Cada item possui os campos esperados\", () => {",
+              "    json.forEach(u => {",
+              "        pm.expect(u).to.have.property(\"id\");",
+              "        pm.expect(u).to.have.property(\"name\");",
+              "        pm.expect(u).to.have.property(\"email\");",
+              "        pm.expect(u).to.have.property(\"gender\");",
+              "        pm.expect(u).to.have.property(\"status\");",
+              "    });",
+              "});",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "id": "4a965be2-19d0-401e-9f07-38943643d530",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "67a660bf4a0aa7db9c34846695dc25f1f0fde8046c9b0550bfeb04de07c9bbd1",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "url": {
+          "raw": "https://gorest.co.in/public/v2/users",
+          "protocol": "https",
+          "host": [
+            "gorest",
+            "co",
+            "in"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Criação de usuário com sucesso",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "d2d20ec0-e57c-4259-97ba-e91786f2cabf",
+            "exec": [
+              "pm.test(\"Status code is 201. Created.\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test(\"Campos estão corretos\", function () {",
+              "    const json = pm.response.json();",
+              "",
+              "    pm.expect(json).to.have.property(\"id\");",
+              "    pm.expect(json.id).to.be.a(\"number\");",
+              "",
+              "    // SALVANDO O ID PARA OUTRAS REQUISIÇÕES",
+              "    pm.environment.set(\"user_id\", json.id);",
+              "",
+              "    pm.expect(json.name).to.eql(\"João Teste\");",
+              "    pm.expect(json.email).to.eql(\"joaoTeste0@example.com\");",
+              "    pm.expect(json.gender).to.eql(\"male\");",
+              "    pm.expect(json.status).to.eql(\"active\");",
+              "",
+              "});",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "0b89fe43-d3bc-413c-994f-a25f4856f2a4",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "id": "4d8377a4-066b-44e9-ae76-df7a74616991",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "9ebd0ad70cee9b17ad8325f07064ed201b20a806df0ae9ad5e38086a763fd769",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"João Teste\",\r\n  \"email\": \"joao@example2.com\",\r\n  \"gender\": \"male\",\r\n  \"status\": \"active\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/public/v2/users",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Falha na criação de usuário  (email repetido)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "707b5690-8ce5-439e-bb0b-13e437dcd21c",
+            "exec": [
+              "pm.test(\"Status code is 422\", function () {",
+              "    pm.response.to.have.status(422);",
+              "});",
+              "",
+              "pm.test(\"Email already exists error\", function () {",
+              "    let json = pm.response.json();",
+              "",
+              "    pm.expect(json[0].field).to.eql(\"email\");",
+              "    pm.expect(json[0].message).to.eql(\"has already been taken\");",
+              "});",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "c708ddd5-6402-477f-8586-d7466b47feee",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "id": "4a1cbbc1-de72-49f0-bf10-d4d78a58e0fd",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "9ebd0ad70cee9b17ad8325f07064ed201b20a806df0ae9ad5e38086a763fd769",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"João Teste\",\n  \"email\": \"joao@example.com\",\n  \"gender\": \"male\",\n  \"status\": \"active\"\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/public/v2/users",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Atualizando usuário com sucesso",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "5ddee229-176c-4377-bf84-e5386ed216d5",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Campos Atualizados Corretamente.\", function () {",
+              "    const json = pm.response.json();",
+              "",
+              "    pm.expect(json).to.have.property(\"id\");",
+              "    pm.expect(json.id).to.be.a(\"number\");",
+              "",
+              "    pm.expect(json.name).to.eql(\"Poornima Sharma JD Atualizado\");",
+              "    pm.expect(json.email).to.eql(\"poornima_sharma_jd@zulauf.test\");",
+              "    pm.expect(json.gender).to.eql(\"female\");",
+              "    pm.expect(json.status).to.eql(\"active\");",
+              "});",
+              "",
+              "",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "id": "bc277b7c-a235-4825-9589-6d74097b5f9d",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "67a660bf4a0aa7db9c34846695dc25f1f0fde8046c9b0550bfeb04de07c9bbd1",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n        \"name\": \"Poornima Sharma JD Atualizado\",\n        \"email\": \"poornima_sharma_jd@zulauf.test\",\n        \"gender\": \"female\",\n        \"status\": \"active\"\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/public/v2/users/8260047",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users",
+            "8260047"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Atualizando apenas um campo do user",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "4786057d-70da-4ee7-8dda-e9e94226f2a8",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Campo Status Atualizado Corretamente.\", function () {",
+              "    const json = pm.response.json();",
+              "",
+              "    pm.expect(json).to.have.property(\"id\");",
+              "    pm.expect(json.id).to.be.a(\"number\");",
+              "",
+              "    pm.expect(json.name).to.eql(\"Giri Dutta\");",
+              "    pm.expect(json.email).to.eql(\"dutta_giri@lowe.example\");",
+              "    pm.expect(json.gender).to.eql(\"male\");",
+              "    pm.expect(json.status).to.eql(\"active\");",
+              "});",
+              "",
+              "",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "id": "98149ef9-0ae1-4056-8074-2ec98750b7a6",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "67a660bf4a0aa7db9c34846695dc25f1f0fde8046c9b0550bfeb04de07c9bbd1",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"active\"\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseURL}}/public/v2/users/8260045",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users",
+            "8260045"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Falha ao remover usuário",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "26a946d7-1660-4837-87da-7fd202ac3ad6",
+            "exec": [
+              "pm.test(\"Status code é 404\", function () {",
+              "    pm.response.to.have.status(404);",
+              "});",
+              "",
+              "",
+              "pm.test(\"Mensagem correta\", function () {",
+              "    const json = pm.response.json();",
+              "    pm.expect(json.message).to.eql(\"Resource not found\");",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "id": "08451094-b4de-49a6-a2f3-5bb72dd215c2",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "67a660bf4a0aa7db9c34846695dc25f1f0fde8046c9b0550bfeb04de07c9bbd1",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "url": {
+          "raw": "{{baseURL}}/public/v2/users/0",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users",
+            "0"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Remover usuário com sucesso",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "26a946d7-1660-4837-87da-7fd202ac3ad6",
+            "exec": [
+              "pm.test(\"Status code é 204\", function () {",
+              "    pm.response.to.have.status(204);",
+              "});",
+              "",
+              "pm.test(\"Usuário removido com sucesso (corpo vazio)\", function () {",
+              "    pm.expect(pm.response.text()).to.eql(\"\");",
+              "});",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "id": "e227c17d-3250-4cf9-b4e4-5438546a453f",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "67a660bf4a0aa7db9c34846695dc25f1f0fde8046c9b0550bfeb04de07c9bbd1",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "url": {
+          "raw": "{{baseURL}}/public/v2/users/{{user_id}}",
+          "host": [
+            "{{baseURL}}"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users",
+            "{{user_id}}"
+          ]
+        }
+      }
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "9ebd0ad70cee9b17ad8325f07064ed201b20a806df0ae9ad5e38086a763fd769",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "id": "b4c72d0a-7222-4137-892f-5449097d76e6",
+      "key": "baseURL",
+      "value": ""
+    }
+  ]
+}
