@@ -26,10 +26,12 @@ newman run "Prova S206 - GoRest.postman_collection.json" \
      -r htmlextra \
      --reporter-htmlextra-export report.html
 ```
-## O relatório será salvo como report.html no diretório atual.
+O relatório será salvo como report.html no diretório atual.
 
-Relatório de Testes rodando direto no VS Code
+
+## Relatório de Testes rodando direto no VS Code
 <img width="413" height="516" alt="image" src="https://github.com/user-attachments/assets/5df01e92-06aa-4bd1-b704-18c62379519d" />
+
 
 ## Relatório de Testes com HTML
 
