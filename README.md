@@ -29,6 +29,11 @@ newman run "Prova S206 - GoRest.postman_collection.json" \
 O relatório será salvo como report.html no diretório atual.
 
 
+## Testes Criados + Enviroment GoRest no Postman
+
+<img width="1240" height="267" alt="image" src="https://github.com/user-attachments/assets/2be631d8-9bf0-47c0-90ca-3fded4ccc5b2" />
+
+
 ## Relatório de Testes rodando direto no VS Code
 <img width="413" height="516" alt="image" src="https://github.com/user-attachments/assets/5df01e92-06aa-4bd1-b704-18c62379519d" />
 
